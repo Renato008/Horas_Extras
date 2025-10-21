@@ -1,0 +1,127 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #d4fc79, #96e6a1);
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 30px;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  width: 95%;
+  max-width: 900px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+input, button, select {
+  width: 100%;
+  padding: 12px 5px;
+  margin: 5px 0;
+  font-size: 16px;
+  border-radius: 12px;
+  border: 1px solid #ccc;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+button {
+  background: #4a90e2;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background: #357ABD;
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  width: 240px;
+  padding: 18px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card.remove, .card.limpar {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+}
+
+.card.domingo {
+  border-left: 6px solid #ff9800;
+  background-color: #fff3e0;
+}
+
+.card.normal {
+  border-left: 6px solid #4a90e2;
+  background-color: #e3f2fd;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 3px;
+  right: 5px;
+  background: #e53935;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.remove-btn:hover {
+  background: #c62828;
+}
+
+#total {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: center;
+  color: white;
+  padding: 12px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #4a90e2, #50c9c3);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}

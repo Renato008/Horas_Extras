@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Horas Extras</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>💼 Controle de Horas Extras</h1>
+
+  <label>📅 Data:</label>
+  <input type="date" id="data">
+
+  <label>⏰ Início:</label>
+  <input type="time" id="inicio">
+
+  <label>🏁 Fim:</label>
+  <input type="time" id="fim">
+
+  <label>💼 Natureza do trabalho:</label>
+  <input type="text" id="natureza" placeholder="Ex: manutenção, suporte...">
+
+  <label>📌 Tipo de hora:</label>
+  <select id="tipoHora">
+    <option value="normal">Dia normal ⏰ (50%)</option>
+    <option value="domingo">Domingo / Feriado 🌞 (100%)</option>
+  </select>
+
+  <button onclick="adicionar()">Adicionar Registro</button>
+
+  <div class="cards-container" id="cards-container"></div>
+
+  <div id="total"></div>
+
+  <button class="limpar" onclick="limparTudo()">🧹 Limpar Tudo</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
