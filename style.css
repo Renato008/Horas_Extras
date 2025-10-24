@@ -1,127 +1,211 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(135deg, #d4fc79, #96e6a1);
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding: 30px;
+:root{
+  --primary:#4a90e2;
+  --secondary:#50c9c3;
+  --domingo:#ff9800;
+  --normal:#4a90e2;
+  --bg-gradient:linear-gradient(135deg, #d4fc79, #96e6a1);
+  --card-bg:#fff;
+  --card-shadow:0 8px 20px rgba(0,0,0,0.12);
+  --radius:20px;
+  --font:'Segoe UI', sans-serif;
+  --valorHora:8.11; /* Valor base da hora normal */
 }
 
-.container {
-  background: white;
-  padding: 30px;
-  border-radius: 25px;
-  width: 95%;
-  max-width: 900px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:var(--font);
+  background:var(--bg-gradient);
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  padding:20px;
 }
 
-h1 {
-  text-align: center;
-  color: #333;
-  font-size: 28px;
-  margin-bottom: 10px;
+.container{
+  background:#fff;
+  padding:25px;
+  border-radius:var(--radius);
+  width:95%;
+  max-width:600px;
+  box-shadow:0 15px 30px rgba(0,0,0,0.2);
+  display:flex;
+  flex-direction:column;
+  gap:15px;
 }
 
-input, button, select {
-  width: 100%;
-  padding: 12px 5px;
-  margin: 5px 0;
-  font-size: 16px;
-  border-radius: 12px;
-  border: 1px solid #ccc;
-  outline: none;
-  transition: all 0.3s ease;
+h1{
+  text-align:center;
+  font-size:26px;
+  color:#333;
 }
 
-button {
-  background: #4a90e2;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s ease;
+input, select, button{
+  width:100%;
+  padding:12px;
+  margin:5px 0;
+  font-size:16px;
+  border-radius:12px;
+  border:1px solid #ccc;
+  outline:none;
+  transition:all 0.3s ease;
 }
 
-button:hover {
-  background: #357ABD;
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+input:focus, select:focus{
+  border-color:var(--primary);
+  box-shadow:0 0 8px rgba(74,144,226,0.3);
 }
 
-.cards-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: center;
+button{
+  background:var(--primary);
+  color:#fff;
+  font-weight:bold;
+  cursor:pointer;
+  border:none;
+  transition:all 0.3s ease;
 }
 
-.card {
-  background: white;
-  border-radius: 20px;
-  width: 240px;
-  padding: 18px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  position: relative;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease, transform 0.5s ease;
-  opacity: 0;
-  transform: translateY(20px);
+button:hover{
+  background:#357ABD;
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 8px 20px rgba(0,0,0,0.25);
 }
 
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
+button.limpar{
+  background:#e53935;
+}
+button.limpar:hover{
+  background:#c62828;
 }
 
-.card.remove, .card.limpar {
-  opacity: 0;
-  transform: translateY(-20px);
+.cards-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
 }
 
-.card:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.18);
+.card{
+  background:var(--card-bg);
+  border-radius:var(--radius);
+  width:100%;
+  max-width:240px;
+  padding:15px;
+  box-shadow:var(--card-shadow);
+  position:relative;
+  transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s, transform 0.5s;
+  opacity:0;
+  transform:translateY(20px);
+}
+.card.show{
+  opacity:1;
+  transform:translateY(0);
+}
+.card.remove, .card.limpar{
+  opacity:0;
+  transform:translateY(-20px);
 }
 
-.card.domingo {
-  border-left: 6px solid #ff9800;
-  background-color: #fff3e0;
+.card:hover{
+  transform:translateY(-5px) scale(1.02);
+  box-shadow:0 12px 25px rgba(0,0,0,0.18);
 }
 
-.card.normal {
-  border-left: 6px solid #4a90e2;
-  background-color: #e3f2fd;
+.card.domingo{
+  border-left:6px solid var(--domingo);
+  background-color:#fff3e0;
+}
+.card.normal{
+  border-left:6px solid var(--normal);
+  background-color:#e3f2fd;
 }
 
-.remove-btn {
-  position: absolute;
-  top: 3px;
-  right: 5px;
-  background: #e53935;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.remove-btn{
+  position:absolute;
+  top:5px;
+  right:5px;
+  background:#e53935;
+  color:white;
+  border:none;
+  padding:6px 10px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+.remove-btn:hover{
+  background:#c62828;
 }
 
-.remove-btn:hover {
-  background: #c62828;
+#totais{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
 }
 
-#total {
-  font-size: 22px;
-  font-weight: bold;
-  text-align: center;
-  color: white;
-  padding: 12px;
-  border-radius: 20px;
-  background: linear-gradient(90deg, #4a90e2, #50c9c3);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+#totalHoras, #totalValor{
+  font-size:18px;
+  font-weight:bold;
+  padding:10px;
+  border-radius:12px;
+  background:linear-gradient(90deg, var(--primary), var(--secondary));
+  color:white;
+  text-align:center;
+  flex:1;
+}
+
+.export-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:10px;
+}
+
+.export-buttons button{
+  background:#4caf50;
+  color:white;
+  padding:10px 16px;
+  border-radius:12px;
+  border:none;
+  cursor:pointer;
+  font-weight:bold;
+  transition:all 0.3s ease;
+}
+
+.export-buttons button:hover{
+  background:#388e3c;
+  transform:translateY(-2px) scale(1.03);
+  box-shadow:0 6px 16px rgba(0,0,0,0.2);
+}
+
+.filtros{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.filtros select, .filtros input{
+  flex:1 1 48%;
+}
+
+@media(max-width:600px){
+  .container{
+    padding:20px;
+  }
+  input, select, button{
+    font-size:15px;
+    padding:10px;
+  }
+  .card{
+    width:100%;
+    max-width:100%;
+  }
+  #totais{
+    flex-direction:column;
+  }
+  .filtros select, .filtros input{
+    flex:1 1 100%;
+  }
 }
