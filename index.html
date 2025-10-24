@@ -66,3 +66,139 @@
 <script src="script.js"></script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Horas Extras Avançado</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>💼 Controle de Horas Extras Avançado</h1>
+
+  <div class="filtros">
+    <label>Filtrar por tipo:</label>
+    <select id="filtroTipo" onchange="mostrarRegistros()">
+      <option value="todos">Todos</option>
+      <option value="normal">Dia normal ⏰</option>
+      <option value="domingo">Domingo/Feriado 🌞</option>
+    </select>
+
+    <label>Filtrar por data:</label>
+    <input type="date" id="filtroData" onchange="mostrarRegistros()">
+  </div>
+
+  <label>📅 Data:</label>
+  <input type="date" id="data">
+
+  <label>⏰ Início:</label>
+  <input type="time" id="inicio">
+
+  <label>🏁 Fim:</label>
+  <input type="time" id="fim">
+
+  <label>💼 Natureza do trabalho:</label>
+  <input type="text" id="natureza" placeholder="Ex: manutenção, suporte...">
+
+  <label>📌 Tipo de hora:</label>
+  <select id="tipoHora">
+    <option value="normal">Dia normal ⏰ (50%)</option>
+    <option value="domingo">Domingo / Feriado 🌞 (100%)</option>
+  </select>
+
+  <button onclick="adicionar()">Adicionar Registro</button>
+
+  <div class="cards-container" id="cards-container"></div>
+
+  <div id="totais">
+    <div id="totalHoras"></div>
+    <div id="totalValor"></div>
+  </div>
+
+  <div class="export-buttons">
+    <button onclick="exportExcel()">📊 Exportar Excel</button>
+    <button onclick="exportPDFAvancado()">📄 Exportar PDF Avançado</button>
+  </div>
+
+  <canvas id="graficoHoras" style="max-width:100%; margin-top:20px;"></canvas>
+
+  <button class="limpar" onclick="limparTudo()">🧹 Limpar Tudo</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Controle de Horas Extras Avançado</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h1>💼 Controle de Horas Extras Avançado</h1>
+
+  <div class="filtros">
+    <label>Filtrar por tipo:</label>
+    <select id="filtroTipo" onchange="mostrarRegistros()">
+      <option value="todos">Todos</option>
+      <option value="normal">Dia normal ⏰</option>
+      <option value="domingo">Domingo/Feriado 🌞</option>
+    </select>
+
+    <label>Filtrar por data:</label>
+    <input type="date" id="filtroData" onchange="mostrarRegistros()">
+  </div>
+
+  <label>📅 Data:</label>
+  <input type="date" id="data">
+
+  <label>⏰ Início:</label>
+  <input type="time" id="inicio">
+
+  <label>🏁 Fim:</label>
+  <input type="time" id="fim">
+
+  <label>💼 Natureza do trabalho:</label>
+  <input type="text" id="natureza" placeholder="Ex: manutenção, suporte...">
+
+  <label>📌 Tipo de hora:</label>
+  <select id="tipoHora">
+    <option value="normal">Dia normal ⏰ (50%)</option>
+    <option value="domingo">Domingo / Feriado 🌞 (100%)</option>
+  </select>
+
+  <button onclick="adicionar()">Adicionar Registro</button>
+
+  <div class="cards-container" id="cards-container"></div>
+
+  <div id="totais">
+    <div id="totalHoras"></div>
+    <div id="totalValor"></div>
+  </div>
+
+  <div class="export-buttons">
+    <button onclick="exportExcel()">📊 Exportar Excel</button>
+    <button onclick="exportPDFAvancado()">📄 Exportar PDF Avançado</button>
+  </div>
+
+  <canvas id="graficoHoras" style="max-width:100%; margin-top:20px;"></canvas>
+
+  <button class="limpar" onclick="limparTudo()">🧹 Limpar Tudo</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
