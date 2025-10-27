@@ -1,5 +1,5 @@
 let registros = JSON.parse(localStorage.getItem("horasExtras")) || [];
-const valorHoraBase = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--valorHora'));
+const valorHoraBase = 8.11;
 
 function salvarLocal() {
   localStorage.setItem("horasExtras", JSON.stringify(registros));
@@ -32,19 +32,34 @@ function adicionar() {
 function calcularHoras(inicio, fim) {
   const [hi, mi] = inicio.split(":").map(Number);
   const [hf, mf] = fim.split(":").map(Number);
-  let total = (hf + mf/60) - (hi + mi/60);
-  if(total<0) total+=24;
+  let total = (hf + mf / 60) - (hi + mi / 60);
+  if (total < 0) total += 24;
   return total;
 }
 
+/* ✅ Data formato BR com dia da semana */
+function formatarDataBR(dataISO) {
+  const diasSemana = [
+    "Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira",
+    "Quinta-feira", "Sexta-feira", "Sábado"
+  ];
+
+  const [ano, mes, dia] = dataISO.split("-").map(Number);
+  const dataObj = new Date(ano, mes - 1, dia);
+
+  const diaSemana = diasSemana[dataObj.getDay()];
+
+  return `${diaSemana} — ${dia}/${mes}/${ano}`;
+}
+
 function remover(index) {
-  registros.splice(index,1);
+  registros.splice(index, 1);
   salvarLocal();
   mostrarRegistros();
 }
 
 function limparTudo() {
-  if(confirm("Tem certeza que deseja apagar todos os registros?")) {
+  if (confirm("Tem certeza que deseja apagar todos os registros?")) {
     registros = [];
     salvarLocal();
     mostrarRegistros();
@@ -63,21 +78,21 @@ function mostrarRegistros() {
            (!filtroData || r.data === filtroData);
   });
 
-  filtrados.forEach((r, i)=>{
+  filtrados.forEach((r, i) => {
     const card = document.createElement("div");
     card.className = `card ${r.tipo}`;
-    const valor = r.tipo==='normal'?r.horas*valorHoraBase*0.5:r.horas*valorHoraBase;
+    const valor = r.tipo === 'normal' ? r.horas * valorHoraBase * 0.5 : r.horas * valorHoraBase;
+
     card.innerHTML = `
-      <h3>${r.data} ${r.tipo==='domingo'?'🌞':'⏰'}</h3>
-      <p><strong>Natureza:</strong> ${r.natureza}</p>
-      <p><strong>Tipo:</strong> ${r.tipo==='domingo'?'Domingo/Feriado':'Dia normal'}</p>
-      <p><strong>Horário:</strong> ${r.inicio} - ${r.fim}</p>
+      <h3>${r.tipo === 'domingo' ? '🌞 Domingo / Feriado' : '⏰ Dia Normal'}</h3>
+      <p><strong> Data:</strong> ${formatarDataBR(r.data)}</p>
+      <p><strong> Horário:</strong> ${r.inicio} - ${r.fim}</p>
       <p><strong>Horas:</strong> ${r.horas.toFixed(2)}h</p>
       <p><strong>Valor:</strong> R$ ${valor.toFixed(2)}</p>
       <button class="remove-btn" onclick="remover(${i})">🗑️</button>
     `;
     container.appendChild(card);
-    setTimeout(()=>card.classList.add("show"),50);
+    setTimeout(() => card.classList.add("show"), 50);
   });
 
   atualizarTotais();
@@ -85,8 +100,8 @@ function mostrarRegistros() {
 }
 
 function atualizarTotais() {
-  const totalHoras = registros.reduce((a,b)=>a+b.horas,0);
-  const totalValor = registros.reduce((a,b)=>a+(b.tipo==='normal'?b.horas*valorHoraBase*0.5:b.horas*valorHoraBase),0);
+  const totalHoras = registros.reduce((a, b) => a + b.horas, 0);
+  const totalValor = registros.reduce((a, b) => a + (b.tipo === 'normal' ? b.horas * valorHoraBase * 0.5 : b.horas * valorHoraBase), 0);
   document.getElementById("totalHoras").innerText = `🕒 Total: ${totalHoras.toFixed(2)}h`;
   document.getElementById("totalValor").innerText = `💰 Valor: R$ ${totalValor.toFixed(2)}`;
 }
@@ -104,39 +119,10 @@ function exportExcel(){
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
   link.setAttribute("download", "horas_extras_avancado.csv");
-  document.body.appendChild(link);
   link.click();
-  document.body.removeChild(link);
 }
 
-/* EXPORTAÇÃO PDF AVANÇADO */
-function exportPDFAvancado(){
-  if(!registros.length){ alert("Nenhum registro para exportar!"); return; }
-
-  const { jsPDF } = window.jspdf;
-  const doc = new jsPDF();
-  doc.setFontSize(16);
-  doc.text("Controle de Horas Extras Avançado",105,15,{align:"center"});
-  doc.setFontSize(12);
-
-  let y=25;
-  doc.text("Data  Início  Fim  Natureza  Tipo  Horas  Valor",12,y); y+=8;
-
-  registros.forEach(r=>{
-    const valor = r.tipo==='normal'?r.horas*valorHoraBase*0.5:r.horas*valorHoraBase;
-    doc.text(`${r.data}  ${r.inicio}  ${r.fim}  ${r.natureza}  ${r.tipo==='domingo'?'Dom/Fer':'Normal'}  ${r.horas.toFixed(2)}  ${valor.toFixed(2)}`,12,y);
-    y+=8;
-    if(y>280){ doc.addPage(); y=20; }
-  });
-
-  const totalHoras = registros.reduce((a,b)=>a+b.horas,0);
-  const totalValor = registros.reduce((a,b)=>a+(b.tipo==='normal'?b.horas*valorHoraBase*0.5:b.horas*valorHoraBase),0);
-  y+=10;
-  doc.text(`🕒 Total: ${totalHoras.toFixed(2)}h    💰 Valor: R$ ${totalValor.toFixed(2)}`,105,y,{align:"center"});
-  doc.save("horas_extras_avancado.pdf");
-}
-
-/* GRÁFICO INTERATIVO */
+/* GRÁFICO */
 let grafico;
 function atualizarGrafico(){
   const ctx = document.getElementById('graficoHoras').getContext('2d');
