@@ -8,10 +8,10 @@
   --card-shadow:0 8px 20px rgba(0,0,0,0.12);
   --radius:20px;
   --font:'Segoe UI', sans-serif;
-  --valorHora:8.11; /* Valor base da hora normal */
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
+
 body{
   font-family:var(--font);
   background:var(--bg-gradient);
@@ -89,26 +89,18 @@ button.limpar:hover{
   background:var(--card-bg);
   border-radius:var(--radius);
   width:100%;
-  max-width:240px;
+  max-width:260px;
   padding:15px;
   box-shadow:var(--card-shadow);
   position:relative;
-  transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s, transform 0.5s;
   opacity:0;
   transform:translateY(20px);
+  transition:0.5s;
 }
+
 .card.show{
   opacity:1;
   transform:translateY(0);
-}
-.card.remove, .card.limpar{
-  opacity:0;
-  transform:translateY(-20px);
-}
-
-.card:hover{
-  transform:translateY(-5px) scale(1.02);
-  box-shadow:0 12px 25px rgba(0,0,0,0.18);
 }
 
 .card.domingo{
@@ -122,15 +114,14 @@ button.limpar:hover{
 
 .remove-btn{
   position:absolute;
-  top:5px;
+  top:1px;
   right:5px;
   background:#e53935;
   color:white;
   border:none;
-  padding:6px 10px;
+  padding:6px 5px;
   border-radius:8px;
   cursor:pointer;
-  transition:all 0.3s ease;
 }
 .remove-btn:hover{
   background:#c62828;
@@ -158,54 +149,10 @@ button.limpar:hover{
   justify-content:center;
   gap:10px;
   flex-wrap:wrap;
-  margin-top:10px;
-}
-
-.export-buttons button{
-  background:#4caf50;
-  color:white;
-  padding:10px 16px;
-  border-radius:12px;
-  border:none;
-  cursor:pointer;
-  font-weight:bold;
-  transition:all 0.3s ease;
-}
-
-.export-buttons button:hover{
-  background:#388e3c;
-  transform:translateY(-2px) scale(1.03);
-  box-shadow:0 6px 16px rgba(0,0,0,0.2);
-}
-
-.filtros{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.filtros select, .filtros input{
-  flex:1 1 48%;
 }
 
 @media(max-width:600px){
-  .container{
-    padding:20px;
-  }
-  input, select, button{
-    font-size:15px;
-    padding:10px;
-  }
   .card{
-    width:100%;
     max-width:100%;
-  }
-  #totais{
-    flex-direction:column;
-  }
-  .filtros select, .filtros input{
-    flex:1 1 100%;
   }
 }
